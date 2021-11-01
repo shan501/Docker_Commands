@@ -1,6 +1,8 @@
 # Docker Commands
-This is a tutorial on all the major Docker commands you need to know to start using Docker.I used freeCodeCamps's
-Docker tutorial for this cheatsheet 
+## Introduction
+Docker is an open-source containerization platform.Bassically think of virtual machine but instead of running different operating systems on the same
+host you are running different applications.Below is a beginers guide on docker.I created this guide after watching this video.
+https://www.youtube.com/watch?v=fqMOX6JJhGo&t=14s
 
 
 ## run 
@@ -352,6 +354,79 @@ and use the command
 docker -H=remote-docker-engine:2375
 ```
 to connect remotely
+
+
+## Containerization 
+Docker uses namespaces to containerized the applications.Namespaces isolate things such as process id , mount,network 
+of different containers
+
+## NameSpaces
+for example when you launch a linux instance , the first processs will have a pid of 1.Then all resulting processes that was
+created from processes 1 will have different ids.The ids can not repeat.When you create a container , the container will start with a
+pid of 1 even though this id has been taken already.This is because of namespaces.The pid on the container will actually be mapped to a pid
+on the host.The pid of the container is only seen on the container.
+If you list the service on the host it will have a differenr pid than if you list it in the container.
+
+## cgroups
+Containers share the underlying hardware but there is no restrictions on how much resource a container can use so 
+theoritically a single container can use up all the resources on the host.We can use cgroups to specify how much 
+a container can use
+```
+docker run --cpus=.5 ubuntu
+```
+This command will let docker know that a single container can not use more than 50 percent of cpu resources. 
+
+# Dockers on windows
+Containers share the underlying OS kernel so that meanss we cant have a linux hosts running windows containers etc...
+
+## docker toolbox
+One way you can get around this is to launch a linux virtual machine on your windows machine.And use the linux machine
+to deploy docker containers.
+Docker toolbox streamlines this process and makes it easier and faster to do those.This is a older way of doing this.
+
+## Docker Desktop for Windows
+This is a newer version and instead of using virtual box to launch the vm , you use microsoft hyper-v to launch your
+machines.
+
+## Windows Containerss
+Now it is possible to create a windows containers and used them on a wwindows docker hosts.When you install docker desktop
+for windows , by default it uses linux containers.You have to change it manually to speicifty it to use windows contaianers.
+Windows can two different types of containers.The Windows Sever will have containers share the same kernerl.The hyper-v isolation
+version will have containers be in virtual machine on the kernel.
+
+
+# Docker on Mac
+Similar to docker on windows.Need to create linux virtual machines and use docker on those machines.
+
+## docker desktop for mac using docker toolbox 
+Uses virtual box
+
+## docker desktop for mac 
+Uses HyperKit
+
+
+# container orchestartion
+Set of tools and scripts to monitor you containers and make the nessarry changes to it if nessassry.They monitor things such 
+as the health of your containers ,should you add more containers to handle a spike in traffic etc ... Can do load balancing ,
+can connect different hosts etc...
+There are many tools to do this.There is docker swarm , kubernetes, mesos.Ochestration is bassically way to manage your containers,
+and make nessary configuration changes.
+
+## Docker Swarm
+A docker orchestration tool.You can combine multiple different docker hosts together and manage them together.It will 
+balacne your containers between these hosts for high avaiblibilty.There is a swarm manager (the master) and there are many 
+swarm node workers(slaves).You will need to run the command 
+```
+docker swarm init
+```
+on the swarm manager and the command 
+```
+docker swarm join --token <token>
+```
+on the workers.
+
+## Kubernetes
+Another orchestration tool.I will create a guide on kubernetes by itself because kubernetes is a really deep topic.
 
 
 
