@@ -1,4 +1,4 @@
-# Docker Commands
+# Docker Guide
 ## Introduction
 Docker is an open-source containerization platform.Bassically think of virtual machine but instead of running different operating systems on the same
 host you are running different applications.Below is a beginers guide on docker.I created this guide after watching this video.
